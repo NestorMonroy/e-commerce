@@ -40,10 +40,11 @@ urlpatterns = [
     url(r'^register/$', register_page, name='register'),
     url(r'^login/$', login_page, name='login'),
     url(r'^products/', include(('products.urls', 'products'), namespace='products')),
-    url(r'^bootstrap/', TemplateView.as_view(template_name='bootstrap/index.html')),
-
-
+    url(r'^search/', include(('search.urls', 'search'), namespace='search')),
     
+    
+    
+    #url(r'^bootstrap/', TemplateView.as_view(template_name='bootstrap/index.html')),
     #url(r'^products/$', ProductListView.as_view()),
     #url(r'^products-fbv/$', product_list_view),
     #url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
