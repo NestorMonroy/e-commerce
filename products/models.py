@@ -5,7 +5,7 @@ import random
 import os
 from django.urls import reverse
 
-from .utils import unique_slug_generator
+from ecommerce.utils import unique_slug_generator
 
 
 def get_filename_ext(filepath):
