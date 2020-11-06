@@ -32,6 +32,8 @@ from django.views.generic import TemplateView
 
 from .views import home_page, about_page, contact_page, register_page, login_page
 
+from carts.views import cart_home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', home_page, name='home'),
@@ -39,9 +41,11 @@ urlpatterns = [
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^register/$', register_page, name='register'),
     url(r'^login/$', login_page, name='login'),
+    url(r'^cart/$', cart_home, name='cart'),
     url(r'^products/', include(('products.urls', 'products'), namespace='products')),
     url(r'^search/', include(('search.urls', 'search'), namespace='search')),
-    
+
+
     
     
     #url(r'^bootstrap/', TemplateView.as_view(template_name='bootstrap/index.html')),
