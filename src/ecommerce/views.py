@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model, authenticate, login
 
-from .forms import ContactForm, RegisterForm, LoginForm
+from .forms import ContactForm
 
 
 def home_page(request):
@@ -45,26 +45,3 @@ def contact_page(request):
         print(request.POST.get('content'))
     return render(request, "contact/view.html", context)
 
-
-def login_page(request):
-
-    return render(request, "auth/login.html", {})
-
-
-User = get_user_model()
-
-
-def register_page(request):
-    form = RegisterForm(request.POST or None)
-    ctx = {
-        'form': form
-    }
-    if form.is_valid():
-        print(form.cleaned_data)
-        username = form.cleaned_data.get("username")
-        email = form.cleaned_data.get("email")
-        password = form.cleaned_data.get("password")
-        new_user = User.objects.create_user(username, email, password)
-        print(new_user)
-
-    return render(request, "auth/register.html", ctx)

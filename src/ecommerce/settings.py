@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tags',
     'carts',
     'orders',
+    'accounts'
     
 ]
 
@@ -139,3 +140,6 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
 PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protected_media")
 
+
+
+LOGOUT_REDIRECT_URL = '/login/'
