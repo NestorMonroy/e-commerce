@@ -6,7 +6,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
-from accounts.views import login_page, register_page
+from accounts.views import login_page, register_page, guest_login_page
 from .views import home_page, about_page, contact_page
 
 urlpatterns = [
@@ -19,7 +19,10 @@ urlpatterns = [
     url(r'^cart/', include(('carts.urls', 'cart'), namespace='cart')),
     url(r'^login/$', login_page, name='login'),
     url(r'^register/$', register_page, name='register'),
+    url(r'^register/guest/$', guest_login_page, name='guest_register'),
+
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
+
 
 ]
 if settings.DEBUG:
