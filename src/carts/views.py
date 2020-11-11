@@ -51,7 +51,8 @@ def checkout_home(request):
     address_qs = None
     if billing_profile is not None:
         if request.user.is_authenticated:
-            address_qs = Address.objects.filter(billing_profile=billing_profile)
+            address_qs = Address.objects.filter(
+                billing_profile=billing_profile)
         order_obj, order_obj_created = Order.objects.new_or_get(
             billing_profile, cart_obj)
         if shipping_address_id:
@@ -68,7 +69,7 @@ def checkout_home(request):
     if request.method == "POST":
         "check that order is done"
         is_done = order_obj.check_done()
-        #print(is_done)
+        # print(is_done)
         if is_done:
             order_obj.mark_paid()
             request.session['cart_items'] = 0
@@ -86,6 +87,7 @@ def checkout_home(request):
     }
 
     return render(request, "carts/checkout.html", context)
+
 
 def checkout_done_view(request):
     return render(request, "carts/checkout-done.html", {})
