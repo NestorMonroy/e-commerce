@@ -38,9 +38,9 @@ class BillingProfile(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     customer_id = models.CharField(max_length=120, null=True, blank=True)
     # customer_id in Stripe or Braintree
-    
+
     objects = BillingProfileManager()
-    
+
     def __str__(self):
         return self.email
 
