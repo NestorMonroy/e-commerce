@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <title>Jquery Examples</title>
+  <style>
+    /* body{ */
+    /*     background-color: red; */
+    /* } */
+    h1 {
+      color: aqua;
+    }
+
+    .description {
+      width: 250px;
+      height: 300px;
+      padding: 30px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class='container'>
+    <div class='row'>
+      <div class='col mx-auto'>
+        <h3>Form</h3>
+        <form class='new-content-form' method="POST" action='/some/url/link'>
+          <textarea name="content" class='form-control' id="" cols="30" rows="10"></textarea>
+          <input type='submit' value='Save' />
+
+        </form>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="formDataSubmitted">
+
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1 class="header">Test</h1>
+  <h1 class="header">Test</h1>
+  <h1 class="header" id='header-3'>Test 3</h1>
+  <h1 class="header">Test</h1>
+  <p class='description'><a href='/abc/'>Some Link</a></p>
+
+  <div class="description">Anoter</div>
+
+  <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed beatae eligendi libero est
+
+
+  </p>
+
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <!--   <script type="text/javascript">
+    $(document).ready(function () {
+      var num = 124
+      var someString = "some string"
+      // some_array = [num, 123, 12333, "an so on"]
+      var someArray = [num, 9, 12333, "an so on"]
+      var someBool = true // true
+      $.each(someArray, function(index, obj){
+        //console.log(index, obj)
+        // 10 % 3 = 1 
+        // 9 % 3 = 0
+        if(obj%2 == 0 && someBool ){
+          console.log(obj, "is even")
+        }else if(obj%3 == 0 && someBool) {
+          console.log(obj, "by 3")
+        } else{
+          console.log(obj, "false and/or is no even")
+        }
+      })
+
+    })
+
+  </script> -->
+
+  <!--   <script type="text/javascript">
+    $(document).ready(function () {
+      // jquery is ready to roll
+      // $(selector)
+      //$('body').css("background-color", "pink")
+      
+      var $description = $(".description")
+      //$description.css("height", "300px").css("width", "250px")
+      console.log($description.length)
+      console.log($description.css("height")) // print()
+      console.log($description.height())
+
+        // if currentElementHeight > builtInHeight
+        // add $description.css("overflow", "scroll")
+      
+
+      setTimeout(() => {
+        //$('body').css("background-color", "pink")
+        $('h1').css("color", "purple")
+        $('h1').text("hello")
+        $('h1:nth-child(2)').text("hello 2 ")
+        $('#header-3').text("hello 3 ")
+        $('.header').css("background-color", "green").css("padding", "30px")
+
+      }, 2000); // in ms
+    })
+  </script> -->
+
+  <!--   <script type="text/javascript">
+    $(document).ready(function () {
+      var $descriptionItems = $(".description")
+      //console.log($descriptionItems.length)
+
+      $.each($descriptionItems, function (index, obj) {
+        var item = $(this)
+        //console.log(item[0].scrollHeight)
+        var actualHeight = item[0].scrollHeight
+        var shouldBeHeight = item.height()
+        //console.log(actualHeight, shouldBeHeight)
+        if (actualHeight > shouldBeHeight + 50) {
+          item.css("overflow-y", "scroll")
+        }
+        //console.log(index, item.height())
+        //console.log(index, obj)
+      })
+
+      var header3 = $("#header-3")
+      header3.click(function (event) {
+        var $this = $(this)
+        console.log($this)
+        console.log(event)
+        window.location.href = 'http://www.google.com/'
+      })
+
+      var descriptionLinks = $(".description a")
+      descriptionLinks.click(function (event) {
+        console.log(event)
+        event.preventDefault()
+        var $this = $(this)
+        var href = $this.attr("href")
+        console.log(href)
+        alert(href)
+        window.location.href = href
+
+      })
+
+
+    })
+  </script> -->
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var contentForm = $(".new-content-form")
+      contentForm.submit(function (event) {
+        event.preventDefault()
+        var $this = $(this)
+        //console.log(contentForm.serialize())
+        var textAreaContent = $this.find('textarea')
+        //console.log(textAreaContent.attr("name"))
+        //console.log(textAreaContent.val())
+        var formMethod = $this.attr("method") // contentForm.attr("method")
+        var formAction = $this.attr("action")
+        var data = {
+          "content": textAreaContent.val(),
+          "method": formMethod,
+          "action": formAction
+        }
+        $('.formDataSubmitted').text(textAreaContent.val() + " method is " + formMethod)
+        
+        textAreaContent.val("")
+
+        // $.ajax({
+        //   url:
+        //   method:
+        //   data:
+        // })
+
+      })
+
+    })
+  </script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
