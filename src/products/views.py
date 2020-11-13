@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 
+from analytics.mixins import ObjectViewedMixin
 from carts.models import Cart
 from .models import Product
 
@@ -14,7 +15,7 @@ class ProductFeaturedListView(ListView):
         return Product.objects.all().featured()
 
 
-class ProductFeaturedDetailView(DetailView):
+class ProductFeaturedDetailView(ObjectViewedMixin, DetailView):
     queryset = Product.objects.all().featured()
     template_name = "products/featured-detail.html"
 
@@ -47,7 +48,7 @@ def product_list_view(request):
     return render(request, "products/list.html", ctx)
 
 
-class ProductDetailSlugView(DetailView):
+class ProductDetailSlugView(ObjectViewedMixin, DetailView):
     queryset = Product.objects.all()
     template_name = "products/detail.html"
 
@@ -72,10 +73,12 @@ class ProductDetailSlugView(DetailView):
             instance = qs.first()
         except:
             raise Http404("Oh no")
+        #object_viewed_signal.send(
+        #    instance.__class__, instance=instance, request=request)
         return instance
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(ObjectViewedMixin, DetailView):
     queryset = Product.objects.all()
     template_name = "products/detail.html"
 
@@ -87,8 +90,8 @@ class ProductDetailView(DetailView):
     def get_object(self, *args, **kwargs):
         request = self.request
         pk = self.kwargs.get('pk')
-        instace = Product.objects.get_by_id(pk)
-        if instace is None:
+        instance = Product.objects.get_by_id(pk)
+        if instance is None:
             raise Http404("Product doesn't exist ")
 
     # def get_queryset(self, *args, **kwargs):
@@ -108,9 +111,9 @@ def product_detail_view(request, pk=None, *args, **kwargs):
     # except:
     #    print("??")
 
-    instace = Product.objects.get_by_id(pk)
+    instance = Product.objects.get_by_id(pk)
     # print(instace)
-    if instace is None:
+    if instance is None:
         raise Http404("Product doesn't exist ")
     #qs = Product.objects.filter(id=pk)
 

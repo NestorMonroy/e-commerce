@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'orders',
     'accounts',
     'billing',
-    'addresses'
+    'addresses',
+    'analytics'
     
 ]
 
@@ -147,3 +148,6 @@ PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protecte
 LOGOUT_REDIRECT_URL = '/login/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_ENDSESSION=  False
