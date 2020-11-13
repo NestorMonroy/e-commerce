@@ -145,3 +145,5 @@ PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protecte
 
 
 LOGOUT_REDIRECT_URL = '/login/'
+
+AUTH_USER_MODEL = 'accounts.User'
