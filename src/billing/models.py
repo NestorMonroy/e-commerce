@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from accounts.models import GuestEmail
-
+import stripe
+stripe.api_key = "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw"
 User = settings.AUTH_USER_MODEL
 
 # abc@abc.com -->> 1000000 billing profiles
@@ -44,11 +45,18 @@ class BillingProfile(models.Model):
     def __str__(self):
         return self.email
 
-# def billing_profile_created_reciber(sender, instance, created, *args, **kwargs):
-#    if created:
-#        print("send to stripe")
-#        instance.customer_id = NewId
-#        instance.save()
+
+def billing_profile_created_reciber(sender, instance, *args, **kwargs):
+    if not instance.customer_id and instance.email:
+        print("Actual api request send to stripe")
+        customer = stripe.Customer.create(
+            email=instance.email
+        )
+        #instance.customer_id = customer.id
+        print(customer)
+
+
+pre_save.connect(billing_profile_created_reciber, sender=BillingProfile)
 
 
 def user_created_receiver(sender, instance, created, *args, **kwargs):
