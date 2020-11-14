@@ -150,8 +150,8 @@ $(document).ready(function() {
 		}
 
 		function stripeTokenHandler(nextUrl, token) {
-            console.log(token.id)
-            alert(token)
+            //console.log(token.id)
+            //alert(token)
 			var paymentMethodEndpoint = '/billing/payment-method/create/';
 			var data = {
 				token: token.id
