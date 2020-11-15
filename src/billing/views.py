@@ -1,11 +1,14 @@
 from django.http import JsonResponse, HttpResponse
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.utils.http import is_safe_url
 from .models import BillingProfile, Card
 
 import stripe
-stripe.api_key = "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw"
-STRIPE_PUB_KEY = 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP'
+
+STRIPE_SECRET_KEY = getattr(settings,"STRIPE_SECRET_KEY", "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw") 
+STRIPE_PUB_KEY =  getattr(settings,"STRIPE_SECRET_KEY", 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP') 
+stripe.api_key = STRIPE_SECRET_KEY
 
 
 def payment_method_view(request):
@@ -30,9 +33,8 @@ def payment_method_createview(request):
         #print(request.POST)
         token = request.POST.get("token")
         if token is not None:
-            customer = stripe.Customer.retrieve(billing_profile.customer_id)
-            card_response = customer.sources.create(source=token)
-            new_card_obj = Card.objects.add_new(billing_profile, card_response)
+            #new_card_obj = Card.objects.add_new(billing_profile, card_response)
+            new_card_obj = Card.objects.add_new(billing_profile, token)
             print(new_card_obj)
         return JsonResponse({"message": "Success! Your card was added."})
     return HttpResponse("error", status_code=401)

@@ -26,7 +26,7 @@ def checkout_address_create_view(request):
             instance.address_type = address_type
             instance.save()
             request.session[address_type + "_address_id"] = instance.id
-            print(address_type + "_address_id")
+            #print(address_type + "_address_id")
         else:
             print("error")
             return redirect("cart:checkout")
