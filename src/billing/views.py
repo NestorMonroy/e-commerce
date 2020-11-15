@@ -7,7 +7,7 @@ from .models import BillingProfile, Card
 import stripe
 
 STRIPE_SECRET_KEY = getattr(settings,"STRIPE_SECRET_KEY", "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw") 
-STRIPE_PUB_KEY =  getattr(settings,"STRIPE_SECRET_KEY", 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP') 
+STRIPE_PUB_KEY =  getattr(settings,"STRIPE_PUB_KEY", 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP') 
 stripe.api_key = STRIPE_SECRET_KEY
 
 
@@ -19,8 +19,7 @@ def payment_method_view(request):
     next_url = None
     next_ = request.GET.get('next')
     if is_safe_url(next_, request.get_host()):
-        next_url - next_
-
+        next_url = next_
     return render(request, 'billing/payment-method.html', {"publish_key": STRIPE_PUB_KEY, "next_url": next_url})
 
 
