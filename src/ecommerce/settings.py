@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'accounts',
     'billing',
     'addresses',
-    'analytics'
+    'analytics',
+    'marketing'
     
 ]
 
@@ -154,3 +155,7 @@ FORCE_INACTIVE_USER_ENDSESSION=  False
 
 STRIPE_SECRET_KEY = "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw"
 STRIPE_PUB_KEY = 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP'
+
+MAILCHIMP_API_KEY = "3cd35708ef66ad43141f719ba7ba7b66-us7"
+MAILCHIMP_DATA_CENTER = "us7"
+MAILCHIMP_EMAIL_LIST_ID = "08f82ad1f5"
