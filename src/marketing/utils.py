@@ -56,19 +56,6 @@ class Mailchimp(object):
             list_endpoint=self.list_endpoint)
         return endpoint
 
-    def add_email(self, email):
-        check_email(email)
-        endpoint = self.get_members_endpoint()
-        data = {
-            "email_address": email,
-            "status": "pending"
-        }
-        r = requests.post(endpoint,
-                          auth=("", MAILCHIMP_API_KEY),
-                          data=json.dumps(data)
-                          )
-        return r.status_code, r.json()
-
     def check_valid_status(self, status):
         choices = ['subscribed', 'unsubscribed', 'cleaned', 'pending']
         if status not in choices:
@@ -76,6 +63,7 @@ class Mailchimp(object):
         return status
 
     def change_subscription_status(self, email, status):
+    
         subscriber_hash = get_subscriber_hash(email)
         members_endpoint = self.get_members_endpoint()
         endpoint = "{members_endpoint}/{sub_hash}".format(
@@ -103,8 +91,38 @@ class Mailchimp(object):
                          )
         return r.status_code, r.json()
 
+    # def add_email(self, email):
+    #    check_email(email)
+    #    endpoint = self.get_members_endpoint()
+    #    data = {
+    #        "email_address": email,
+    #        "status": "pending"
+    #    }
+    #    r = requests.post(endpoint,
+    #                      auth=("", MAILCHIMP_API_KEY),
+    #                      data=json.dumps(data)
+    #                      )
+    #
+    #    return r.status_code, r.json()
+
+    def add_email(self, email):
+        # check_email(email)
+        #status = "subscribed"
+        # self.check_valid_status(status)
+        # data = {
+        #    "email_address": email,
+        #    "status": status
+        # }
+        #endpoint = self.get_members_endpoint()
+        #r = requests.post(endpoint, auth=("", self.key), data=json.dumps(data))
+        # return r.status_code, r.json()
+        return self.change_subscription_status(email, status='subscribed')
+
     def unsubscribe(self, email):
         return self.change_subscription_status(email, status='unsubscribed')
+
+    def subscribe(self, email):
+        return self.change_subscription_status(email, status='subscribed')
 
     def resubscribe(self, email):
         return self.change_subscription_status(email, status='subscribed')
