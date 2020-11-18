@@ -3,8 +3,12 @@
 
 .env
 
+jquery_example/
 
+notes/
+static_cdn/
 
+.
 *.log
 *.pot
 *.pyc
