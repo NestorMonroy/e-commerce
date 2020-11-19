@@ -14,13 +14,14 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7!p97_-24n=9$#go!d1@&sp#h3+v^zja^)^gti19r6trdvb@i_'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'storages',
 
     'products',
     'search',
@@ -135,18 +138,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_e"),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static_e"),
+#]
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
-
-
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+#
+#
 PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protected_media")
+
+from ecommerce.aws.conf import *
 
 
 
@@ -157,12 +162,12 @@ AUTH_USER_MODEL = 'accounts.User'
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION=  False
 
-STRIPE_SECRET_KEY = "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw"
-STRIPE_PUB_KEY = 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP'
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw")
+STRIPE_PUB_KEY = os.environ.get("STRIPE_PUB_KEY", 'pk_test_wf7QP1baQedjEdEMPfuRYvOV00qP48bntP')
 
-MAILCHIMP_API_KEY = "3cd35708ef66ad43141f719ba7ba7b66-us7"
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY")
 MAILCHIMP_DATA_CENTER = "us7"
-MAILCHIMP_EMAIL_LIST_ID = "08f82ad1f5"
+MAILCHIMP_EMAIL_LIST_ID = os.environ.get("MAILCHIMP_EMAIL_LIST_ID")
 
 # Let's Encrypt ssl/tls https
 

@@ -1,10 +1,14 @@
+import os
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from accounts.models import GuestEmail
 from django.urls import reverse
 import stripe
-stripe.api_key = "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw"
+
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_Gml9nY1ZFZ8O9hNEwD8OKwtx00EEHtWKiw")
+
+stripe.api_key = STRIPE_SECRET_KEY
 User = settings.AUTH_USER_MODEL
 
 # abc@abc.com -->> 1000000 billing profiles

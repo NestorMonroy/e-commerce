@@ -10,7 +10,7 @@ def home_page(request):
     # print(request.session.get("first_name", "Unknown"))
     # request.session['first_name']
     context = {
-        "title": "Hello World!",
+        "title": "Hello!",
         "content": " Welcome to the homepage.",
 
     }

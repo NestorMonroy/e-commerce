@@ -4,7 +4,7 @@
       alt="{{ instance.title}} logo"></a>
   {% endif %}
   <div class="card-body">
-    <h4 class="card-title">{{ instance.title }}</h4>
+    <h4 class="card-title">{{ instance.title }} <br> $ {{ instance.price }}  </h4>
     <p class="card-text">{{ instance.description|linebreaks|truncatewords:14 }}</p>
 
     <div class='text-center'>
